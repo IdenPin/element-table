@@ -9,7 +9,7 @@
   },
   "main": "index.js",
   "files": [
-    "src/lib"
+    "lib"
   ],
   "dependencies": {
     "core-js": "^3.6.5",
