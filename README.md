@@ -1,4 +1,4 @@
-# data-table
+# data-element-table
 
 ## Project setup
 ```

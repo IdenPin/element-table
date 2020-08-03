@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import HRender from './HRender'
+import HRender from '../../h-render/src/HRender'
 import forced from './forced.js'
 export default {
   name: 'Column',

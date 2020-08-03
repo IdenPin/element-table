@@ -1,26 +1,9 @@
-.*.swp
+# 忽略目录
+examples/
+packages/
+public/
 
-._*
-
-.DS_Store
-
-.git
-
-.hg
-
-.npmrc
-
-.lock-wscript
-
-.svn
-
-.wafpickle-*
-
-config.gypi
-
-CVS
-
-npm-debug.log
-
-node_modules/
-pblic/
+# 忽略指定文件
+vue.config.js
+babel.config.js
+*.map

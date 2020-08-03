@@ -24,8 +24,9 @@
 </template>
 
 <script>
-import Column from './Column'
+import Column from '../../column/src/Column'
 export default {
+  name: 'DTable',
   props: {
     column: Array,
     data: Array,

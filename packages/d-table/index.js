@@ -1,5 +1,4 @@
-import DTable from './DTable'
-
+import DTable from './src/DTable.vue'
 DTable.install = function (Vue) {
   Vue.component(DTable.name, DTable)
 }
