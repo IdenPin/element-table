@@ -2,7 +2,7 @@
   "name": "@pdeng/data-element-table",
   "version": "0.2.3",
   "description": "基于 element ui 二次封装的表格，保留了绝大部分 api，实现了支持表头数据动态配置",
-  "main": "lib/dateElementTable.umd.min.js",
+  "main": "lib/dataElementTable.umd.min.js",
   "keyword": "element ui table",
   "private": false,
   "scripts": {
