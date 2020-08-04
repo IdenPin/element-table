@@ -1,15 +1,15 @@
 {
-  "name": "@pdeng/data-element-table",
-  "version": "0.2.6",
-  "description": "基于 element ui 二次封装的表格，保留了绝大部分 api，实现了支持表头数据动态配置",
-  "main": "lib/dataElementTable.umd.min.js",
+  "name": "@pdeng/element-table",
+  "version": "0.1.0",
+  "description": "基于 element ui 二次封装的表格，保留了绝大部分 api，支持表头数据动态配置导入",
+  "main": "lib/elementTable.umd.min.js",
   "keyword": "element ui table",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name dataElementTable --dest lib packages/index.js"
+    "lib": "vue-cli-service build --target lib --name elementTable --dest lib packages/index.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
