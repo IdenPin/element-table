@@ -15,7 +15,7 @@ module.exports = {
     config.module
       .rule('js')
       .include
-      .add(path.join(__dirname, '/packages'))
+      .add(path.join(__dirname, 'packages'))
       .end()
       .use('babel')
       .loader('babel-loader')
