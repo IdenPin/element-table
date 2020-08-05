@@ -4,10 +4,10 @@
       :data="[...tableData.data,...tableData.data]"
       :row-class-name="rowClassName"
       :pagination="true"
-      paginationAlign='center'
       :currentPage.sync="currentPage"
       :pageSize.sync="pageSize"
-      height="700"
+      height="500"
+      paginationAlign='center'
       @currentChange="fetchTable"
       border>
     </DTable>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import columnData from './data'
+import columnData from '../assets/data'
 export default {
   name: 'Demo',
   data () {

@@ -12,4 +12,41 @@ npm i @pdeng/element-table
 // 使用
 import ElementTable from '@pdeng/element-table'
 Vue.use(ElementTable)
+
+<DTable :data="dataList" :column="columnData" />
+
+data() {
+  return {
+    currentPage: 1,
+    pageSize: 10,
+    columnData: [
+      {
+        type: 'index',
+        label: '编号',
+        index: (v) => {
+          return (this.currentPage - 1) * this.pageSize + v + 1
+      },
+      {
+        label: '日期',
+        prop:'date',
+      },
+      {
+        label: '姓名',
+        prop:'name',
+      }
+      ...
+    ],
+    dataList: [
+      {
+        date: '2020-08-01',
+        name: '韩小寒'
+      },
+      {
+        date: '2020-08-01',
+        name: '韩小寒'
+      },
+      ....
+    ]
+  },
+}
 ```

@@ -16,17 +16,17 @@ export default function (ctx) {
       children: [
         {
           prop: 'name',
-          label: '姓名'
-          // renderHeader (h, { column }) {
-          //   return (
-          //     <h1 style={{ color: 'red' }}>{column.label}</h1>
-          //   )
-          // },
-          // renderBody (h, { row }) {
-          //   return (
-          //     <h1>{row.name}</h1>
-          //   )
-          // }
+          label: '姓名',
+          renderHeader (h, { column }) {
+            return (
+              <h1 style={{ color: 'red' }}>{column.label}</h1>
+            )
+          },
+          renderBody (h, { row }) {
+            return (
+              <h1>{row.name}</h1>
+            )
+          }
         },
         {
           label: '地址',

@@ -2,11 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import DataElementTable from './../packages/index'
+import ElementTable from '../packages/index'
 Vue.config.productionTip = false
+console.log('-----', ElementTable)
 
 Vue.use(ElementUI)
-Vue.use(DataElementTable)
+Vue.use(ElementTable)
 new Vue({
   render: h => h(App)
 }).$mount('#app')
