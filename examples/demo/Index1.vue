@@ -1,85 +1,53 @@
 <template>
   <div>
-    <DTable :column="tableData.column"
+    <el-table-block :column="tableData.column"
       :data="[...tableData.data,...tableData.data]"
       :row-class-name="rowClassName"
-      :pagination="true"
-      :currentPage.sync="currentPage"
-      :pageSize.sync="pageSize"
-      height="500"
       paginationAlign='center'
       @currentChange="fetchTable"
       border>
-    </DTable>
+    </el-table-block>
   </div>
 </template>
 
 <script>
-import columnData from '../assets/data'
 export default {
   name: 'Demo',
   data () {
     return {
-      currentPage: 1,
-      pageSize: 10,
       tableData: {
-        column: columnData(this),
-        data: [
+        column: [
           {
-            date: '2016-05-03',
-            name: '韩小寒1',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
+            label: '日期',
+            prop: 'date'
           },
           {
-            date: '2016-05-02',
-            name: '韩小寒2',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
+            label: '名称',
+            prop: 'name'
           },
           {
-            date: '2016-05-02',
-            name: '韩小寒3',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-02',
-            name: '韩小寒4',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-02',
-            name: '韩小寒5',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
+            label: '地址',
+            prop: 'address'
           }
-        ]
+        ],
+        data: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }]
       }
-    }
-  },
-  methods: {
-    fetchTable (v) {
-      this.currentPage = v
-    },
-    rowClassName ({ row, rowIndex }) {
-      if (rowIndex === 1) {
-        return 'warning-row'
-      } else if (rowIndex === 3) {
-        return 'success-row'
-      }
-      return ''
     }
   }
 }

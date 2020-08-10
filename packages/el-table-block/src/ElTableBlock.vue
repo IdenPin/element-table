@@ -1,5 +1,5 @@
 <template>
-  <div class="DTable">
+  <div class="el-table-block-wrap">
     <el-table ref="elTable"
       v-bind="$attrs"
       v-on="$listeners"
@@ -11,7 +11,7 @@
         :column="item">
       </Column>
     </el-table>
-    <el-pagination class="DTable-pagination"
+    <el-pagination class="pagination"
       v-if="pagination"
       v-bind="$attrs"
       v-on="$listeners"
@@ -26,7 +26,7 @@
 <script>
 import Column from '../../column/src/Column'
 export default {
-  name: 'DTable',
+  name: 'ElTableBlock',
   props: {
     column: Array,
     data: Array,

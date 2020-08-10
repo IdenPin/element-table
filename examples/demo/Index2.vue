@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DTable :column="tableData.column"
+    <el-table-block :column="tableData.column"
       :data="[...tableData.data,...tableData.data]"
       :row-class-name="rowClassName"
       :pagination="true"
@@ -10,7 +10,7 @@
       paginationAlign='center'
       @currentChange="fetchTable"
       border>
-    </DTable>
+    </el-table-block>
   </div>
 </template>
 

@@ -10,10 +10,10 @@
 npm i @pdeng/element-table
 
 // 使用
-import ElementTable from '@pdeng/element-table'
-Vue.use(ElementTable)
+import ElTableBlock from '@pdeng/element-table'
+Vue.use(ElTableBlock)
 
-<DTable :data="dataList" :column="columnData" />
+<ElTableBlock :data="dataList" :column="columnData" />
 
 data() {
   return {
