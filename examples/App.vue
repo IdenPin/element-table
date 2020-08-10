@@ -26,7 +26,7 @@ export default {
   name: 'App',
   data () {
     return {
-      activeName: '3'
+      activeName: '1'
     }
   },
   components: {
