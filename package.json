@@ -1,6 +1,6 @@
 {
   "name": "@pdeng/element-table",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "基于 element ui 二次封装的表格，保留了绝大部分 api，支持表头数据动态配置导入",
   "main": "lib/elementTable.umd.min.js",
   "keyword": "element ui table",
