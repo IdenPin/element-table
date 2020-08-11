@@ -1,6 +1,6 @@
 <template>
   <div class="el-table-block-wrap">
-    <el-table ref="elTable"
+    <el-table ref="elTableBlock"
       v-bind="$attrs"
       v-on="$listeners"
       :data="data"

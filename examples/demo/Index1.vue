@@ -2,9 +2,6 @@
   <div>
     <el-table-block :column="tableData.column"
       :data="[...tableData.data,...tableData.data]"
-      :row-class-name="rowClassName"
-      paginationAlign='center'
-      @currentChange="fetchTable"
       border>
     </el-table-block>
   </div>

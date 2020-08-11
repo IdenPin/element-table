@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- :merge="['mpName','processTypeName']" -->
     <el-table-block :column="column"
       :data="rows"
       :span-method="spanMethod"
@@ -62,6 +63,10 @@ export default {
             }
           }
           // 返回相同内容的行数
+          console.log({
+            rowspan: rows,
+            colspan: 1
+          })
           return {
             rowspan: rows,
             colspan: 1
