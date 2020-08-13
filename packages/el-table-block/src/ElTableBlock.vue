@@ -15,8 +15,12 @@
       v-if="pagination"
       v-bind="$attrs"
       v-on="$listeners"
+      :layout="pageLayout"
+      :total="pageTotal"
       :current-page="currentPage"
       :page-size="pageSize"
+      :background="pageBackground"
+      :hide-on-single-page="pageHideOnSignlePage"
       @current-change="paginationCurrentChange"
       :style="{ 'margin-top': paginationTop, 'text-align': paginationAlign }">
     </el-pagination>
@@ -31,7 +35,19 @@ export default {
     column: Array,
     data: Array,
     spanMethod: Function,
+    pageHideOnSignlePage: {
+      type: Boolean,
+      defalut: false
+    },
     currentPage: {
+      type: Number,
+      default: 1
+    },
+    pageLayout: {
+      type: String,
+      default: 'total, prev, pager, next'
+    },
+    pageTotal: {
       type: Number,
       default: 1
     },
@@ -50,6 +66,10 @@ export default {
     paginationAlign: {
       type: String,
       default: 'right'
+    },
+    pageBackground: {
+      type: Boolean,
+      default: false
     },
     merge: Array
   },

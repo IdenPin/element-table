@@ -6,6 +6,7 @@
       :pagination="true"
       :currentPage.sync="currentPage"
       :pageSize.sync="pageSize"
+      :pageTotal="tableData.data.length"
       height="500"
       paginationAlign='center'
       @currentChange="fetchTable"
@@ -21,7 +22,7 @@ export default {
   data () {
     return {
       currentPage: 1,
-      pageSize: 10,
+      pageSize: 2,
       tableData: {
         column: columnData(this),
         data: [
