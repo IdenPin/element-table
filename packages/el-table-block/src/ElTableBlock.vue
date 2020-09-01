@@ -11,8 +11,9 @@
         :column="item">
       </Column>
     </el-table>
+    {{pagination && pageTotal>0}}
     <el-pagination class="pagination"
-      v-if="pagination"
+      v-if="pagination && pageTotal>0"
       v-bind="$attrs"
       v-on="$listeners"
       :layout="pageLayout"
@@ -49,7 +50,7 @@ export default {
     },
     pageTotal: {
       type: Number,
-      default: 1
+      default: 0
     },
     pageSize: {
       type: Number,
@@ -90,9 +91,6 @@ export default {
       return this.data.length
     }
   },
-  mounted () {
-    // console.log('----', this)
-  },
   methods: {
     clearSelection () {
       this.$refs.elTable.clearSelection()
@@ -128,7 +126,7 @@ export default {
       if (!merge) return
       this.mergeLine = {}
       this.mergeIndex = {}
-      merge.forEach((item, k) => {
+      merge.forEach((item, k) => { // item-> "mpName", "processTypeName"
         tableData.forEach((data, i) => {
           if (i === 0) {
             this.mergeIndex[item] = this.mergeIndex[item] || []
@@ -145,15 +143,21 @@ export default {
           }
         })
       })
+      console.log('mergeLine', this.mergeLine)
+      console.log('mergeIndex', this.mergeIndex)
     },
     mergeMethod ({ row, column, rowIndex, columnIndex }) {
       const index = this.merge.indexOf(column.property)
       if (index > -1) {
-        const _row = this.mergeIndex[this.merge[index]][rowIndex]
-        const _col = _row > 0 ? 1 : 0
+        const _row = this.mergeIndex[column.property][rowIndex]
+        console.log({
+          rowspan: _row,
+          colspan: _row > 0 ? 1 : 0
+        })
+
         return {
           rowspan: _row,
-          colspan: _col
+          colspan: _row > 0 ? 1 : 0
         }
       }
     }

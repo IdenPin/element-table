@@ -1,11 +1,15 @@
 <template>
   <div>
-    <!-- :merge="['mpName','processTypeName']" -->
     <el-table-block :column="column"
+      :data="rows"
+      :merge="['mpName']"
+      border>
+    </el-table-block>
+    <!-- <el-table-block :column="column"
       :data="rows"
       :span-method="spanMethod"
       border>
-    </el-table-block>
+    </el-table-block> -->
   </div>
 </template>
 
@@ -14,6 +18,13 @@ export default {
   data () {
     return {
       column: [{
+        type: 'index',
+        renderBody: (h, data) => {
+          return (
+            <b>{data.$index + 1}</b>
+          )
+        }
+      }, {
         prop: 'mpName',
         label: '工艺流程'
       }, {
@@ -24,7 +35,10 @@ export default {
         label: '设备类型'
       }, {
         prop: 'equipTypeId',
-        label: '监测设备'
+        label: '监测设备',
+        formatter (data) {
+          return data.equipTypeId + '件'
+        }
       }, {
         prop: 'equipId',
         label: '判断依据'
@@ -158,7 +172,6 @@ export default {
           equipId: '3333'
         }
       ]
-      this.rows = data
       this.rows = data.reduce((acc, v) => {
         v.equipType.forEach(vv => {
           vv.rows = v.equipType.length
@@ -169,7 +182,6 @@ export default {
         acc.push(...v.equipType)
         return acc
       }, [])
-      console.log('-----', this.rows)
     }
   }
 }
