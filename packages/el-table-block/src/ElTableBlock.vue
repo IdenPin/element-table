@@ -11,7 +11,6 @@
         :column="item">
       </Column>
     </el-table>
-    {{pagination && pageTotal>0}}
     <el-pagination class="pagination"
       v-if="pagination && pageTotal>0"
       v-bind="$attrs"
@@ -143,17 +142,11 @@ export default {
           }
         })
       })
-      console.log('mergeLine', this.mergeLine)
-      console.log('mergeIndex', this.mergeIndex)
     },
     mergeMethod ({ row, column, rowIndex, columnIndex }) {
       const index = this.merge.indexOf(column.property)
       if (index > -1) {
         const _row = this.mergeIndex[column.property][rowIndex]
-        console.log({
-          rowspan: _row,
-          colspan: _row > 0 ? 1 : 0
-        })
 
         return {
           rowspan: _row,
