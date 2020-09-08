@@ -29,8 +29,9 @@
     :filter-method="column.filterMethod"
     :filtered-value="column.filteredValue">
 
-    <template slot="header"
-      slot-scope="scope">
+    <!-- <template slot="header"
+      slot-scope="scope"> -->
+    <template v-slot:header="scope">
       <HRender v-if="column.renderHeader"
         :scope="scope"
         :render="column.renderHeader">

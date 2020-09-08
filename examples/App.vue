@@ -24,7 +24,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import Demo1 from './demo/Index1'
 import Demo2 from './demo/Index2'
 import Demo3 from './demo/Index3'
@@ -35,7 +34,7 @@ export default {
   name: 'App',
   data () {
     return {
-      activeName: '2'
+      activeName: '1'
     }
   },
   components: {
