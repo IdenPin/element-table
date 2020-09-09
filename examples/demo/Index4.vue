@@ -1,5 +1,10 @@
 <template>
-  <el-table-block :column="tableData.column"
+  <el-table-block
+    :column="tableData.column"
+    :pagination="true"
+    :pageTotal="20"
+    :pageSize="5"
+    :currentPage="1"
     :data="tableData.data">
   </el-table-block>
 </template>
@@ -10,6 +15,9 @@ export default {
     return {
       tableData: {
         column: [
+          {
+            type: 'index'
+          },
           {
             prop: 'date',
             label: '日期',

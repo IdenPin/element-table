@@ -7,7 +7,7 @@ export default {
     render: Function
   },
   render: (h, ctx) => {
-    return ctx.props.render ? ctx.props.render(h, ctx.props.scope) : ''
+    return ctx.props.render && ctx.props.render(h, ctx.props.scope)
   }
 }
 </script>

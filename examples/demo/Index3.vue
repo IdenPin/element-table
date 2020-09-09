@@ -1,15 +1,14 @@
 <template>
   <div>
-    <el-table-block :column="column"
-      :data="rows"
-      :merge="['mpName']"
-      border>
-    </el-table-block>
     <!-- <el-table-block :column="column"
+      :data="rows"
+      :merge="merge"
+    /> -->
+    <el-table-block :column="column"
       :data="rows"
       :span-method="spanMethod"
       border>
-    </el-table-block> -->
+    </el-table-block>
   </div>
 </template>
 
@@ -17,6 +16,7 @@
 export default {
   data () {
     return {
+      searchValue: '',
       column: [{
         type: 'index',
         renderBody: (h, data) => {
@@ -45,6 +45,15 @@ export default {
       }, {
         prop: 'processTypeCode',
         label: '操作',
+        renderHeader: (h) => {
+          return (
+            <el-input
+              value={this.searchValue}
+              onInput={value => (this.searchValue = value)}
+              size="mini"
+              placeholder="输入关键字搜索"/>
+          )
+        },
         renderBody (h) {
           return (
             <el-button type="primary" size="mini" onClick={() => { alert(1) }}>查看</el-button>
@@ -52,39 +61,48 @@ export default {
         }
       }
       ],
-      rows: []
+      rows: [],
+      merge: ['mpName', 'processTypeName']
     }
   },
   mounted () {
     this.fetchTable()
   },
   methods: {
-    spanMethod ({ row, column, rowIndex, columnIndex }) {
-      // 合并第一列和第二列
-      if (columnIndex <= 1) {
-        // 清楚合并的
-        if (rowIndex > 0 && row[column.property] === this.rows[rowIndex - 1][column.property]) {
-          return {
-            rowspan: 0,
-            colspan: 0
-          }
-        } else {
-          let rows = 1
-          // 如果前一项和后一项相等，则合并
-          for (let i = rowIndex; i < this.rows.length - 1; i++) {
-            if (row[column.property] === this.rows[i + 1][column.property]) {
-              rows++
+    setTable (tableData, merge) {
+      this.mergeLine = {}
+      this.mergeIndex = {}
+      merge.forEach((item, k) => {
+        tableData.forEach((data, i) => {
+          if (i === 0) {
+            this.mergeIndex[item] = this.mergeIndex[item] || []
+            this.mergeIndex[item].push(1) // this.mergeIndex['mpName'] = [1]
+
+            this.mergeLine[item] = 0 // this.mergeLine['mpName'] = 0
+          } else {
+            if (data[item] === tableData[i - 1][item]) {
+              // （相同值第一个出现的位置，统计需要合并多少行）
+              this.mergeIndex[item][this.mergeLine[item]] += 1
+              // 新增一个被合并行
+              this.mergeIndex[item].push(0)
+            } else {
+              // 否则不合并
+              this.mergeIndex[item].push(1)
+              console.log('i', i)
+              this.mergeLine[item] = i
             }
           }
-          // 返回相同内容的行数
-          console.log({
-            rowspan: rows,
-            colspan: 1
-          })
-          return {
-            rowspan: rows,
-            colspan: 1
-          }
+        })
+      })
+    },
+    spanMethod ({ row, column, rowIndex, columnIndex }) {
+      const index = this.merge.indexOf(column.property)
+      if (index > -1) {
+        const _row = this.mergeIndex[column.property][rowIndex]
+        const _col = _row > 0 ? 1 : 0 // 1 展示 0隐藏
+        return {
+          rowspan: _row,
+          colspan: _col
         }
       }
     },
@@ -112,27 +130,27 @@ export default {
           ],
           equipId: '121212'
         },
-        {
-          mpId: '89283938293',
-          mpName: '活性污泥工艺流程',
-          processTypeCode: '1',
-          processTypeName: '活性污泥法',
-          equipType: [
-            {
-              equipTypeId: '1',
-              equipTypeName: '污水提升泵'
-            },
-            {
-              equipTypeId: '2',
-              equipTypeName: '鼓风机'
-            },
-            {
-              equipTypeId: '3',
-              equipTypeName: '污泥回流泵'
-            }
-          ],
-          equipId: '111'
-        },
+        // {
+        //   mpId: '89283938293',
+        //   mpName: '活性污泥工艺流程',
+        //   processTypeCode: '1',
+        //   processTypeName: '活性污泥法',
+        //   equipType: [
+        //     {
+        //       equipTypeId: '1',
+        //       equipTypeName: '污水提升泵'
+        //     },
+        //     {
+        //       equipTypeId: '2',
+        //       equipTypeName: '鼓风机'
+        //     },
+        //     {
+        //       equipTypeId: '3',
+        //       equipTypeName: '污泥回流泵'
+        //     }
+        //   ],
+        //   equipId: '111'
+        // }
         {
           mpId: '89283938294',
           mpName: '氧化沟法工艺流程',
@@ -144,33 +162,33 @@ export default {
               equipTypeName: '鼓风机'
             },
             {
-              equipTypeId: '3',
+              equipTypeId: '2',
               equipTypeName: '污泥回流泵'
             }
           ],
           equipId: '222'
-        },
-        {
-          mpId: '434342323',
-          mpName: '过氧化氢',
-          processTypeCode: '11',
-          processTypeName: '高锰酸钾冶炼法',
-          equipType: [
-            {
-              equipTypeId: '1',
-              equipTypeName: '升泵'
-            },
-            {
-              equipTypeId: '2',
-              equipTypeName: '前泵'
-            },
-            {
-              equipTypeId: '3',
-              equipTypeName: '中泵'
-            }
-          ],
-          equipId: '3333'
         }
+        // {
+        // mpId: '434342323',
+        // mpName: '过氧化氢',
+        // processTypeCode: '11',
+        // processTypeName: '高锰酸钾冶炼法',
+        // equipType: [
+        //   {
+        //     equipTypeId: '1',
+        //     equipTypeName: '升泵'
+        //   },
+        //   {
+        //     equipTypeId: '2',
+        //     equipTypeName: '前泵'
+        //   },
+        //   {
+        //     equipTypeId: '3',
+        //     equipTypeName: '中泵'
+        //   }
+        // ],
+        // equipId: '3333'
+        // }
       ]
       this.rows = data.reduce((acc, v) => {
         v.equipType.forEach(vv => {
@@ -182,6 +200,7 @@ export default {
         acc.push(...v.equipType)
         return acc
       }, [])
+      this.setTable(this.rows, this.merge)
     }
   }
 }

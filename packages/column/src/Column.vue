@@ -1,5 +1,6 @@
 <template>
-  <el-table-column v-bind="$attrs"
+  <el-table-column
+    v-bind="$attrs"
     v-on="$listeners"
     :prop="column.prop"
     :label="column.label"
@@ -39,7 +40,7 @@
       <span v-else>{{ scope.column.label }}</span>
     </template>
 
-    <template slot-scope="scope">
+    <template v-slot="scope">
       <HRender
         :scope="scope"
         :render="column.renderBody">

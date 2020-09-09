@@ -13,7 +13,17 @@ export default {
       column: [
         {
           label: '日期',
-          prop: 'date'
+          prop: 'date',
+          renderHeader: () => {
+            return (
+              <b style={{ color: '#000' }}>日期格式化</b>
+            )
+          },
+          renderBody: (h, scope) => {
+            return (
+              <b>{scope.row.date}</b>
+            )
+          }
         },
         {
           label: '名称',
@@ -22,12 +32,21 @@ export default {
         {
           label: '地址',
           prop: 'address'
+        },
+        {
+          label: '操作',
+          prop: 'name',
+          renderBody: (h, scope) => {
+            return (
+              <el-link type="success">{scope.row.date}</el-link>
+            )
+          }
         }
       ],
       rows: Array.from({ length: 5 }, (_, index) => ({
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        date: '2020-05-02',
+        name: '韩小寒',
+        address: '陕西省西安市高新区汇鑫IBC'
       }))
     }
   }

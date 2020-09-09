@@ -1,15 +1,15 @@
 <template>
   <div>
-    <el-table-block :column="tableData.column"
-      :data="[...tableData.data,...tableData.data]"
-      :row-class-name="rowClassName"
+    <el-table-block :column="column"
+      :data="rows"
+      :rowClassName="rowClassName"
       :pagination="true"
       :currentPage.sync="currentPage"
       :pageSize.sync="pageSize"
-      :pageTotal="tableData.data.length"
-      height="500"
+      :pageTotal="40"
       paginationAlign='center'
       @currentChange="fetchTable"
+      size="mini"
       border>
     </el-table-block>
   </div>
@@ -22,52 +22,16 @@ export default {
   data () {
     return {
       currentPage: 1,
-      pageSize: 2,
-      tableData: {
-        column: columnData(this),
-        data: [
-          {
-            date: '2016-05-03',
-            name: '韩小寒1',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-02',
-            name: '韩小寒2',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-02',
-            name: '韩小寒3',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-02',
-            name: '韩小寒4',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-02',
-            name: '韩小寒5',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          }
-        ]
-      }
+      pageSize: 5,
+      column: columnData(this),
+      rows: Array.from({ length: 10 }, (_, index) => ({
+        date: '2016-05-03',
+        name: '张二米',
+        province: '西安',
+        city: '高新',
+        address: '陕西省西安市高新区都市之门',
+        zip: 200333
+      }))
     }
   },
   methods: {
@@ -87,6 +51,17 @@ export default {
 </script>
 
 <style>
+.___test___style__label{
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+.___test___style{
+  font-size: 26px;
+  padding: 0;
+  background-color: yellow;
+  border: none;
+}
 .el-table .warning-row {
   background: oldlace;
 }

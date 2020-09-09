@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-main>
-      <h1>Element Table</h1>
+      <h1>Element Table Demo</h1>
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="基础表格" name="1">
           <Demo1/>
@@ -34,7 +34,7 @@ export default {
   name: 'App',
   data () {
     return {
-      activeName: '1'
+      activeName: '4'
     }
   },
   components: {

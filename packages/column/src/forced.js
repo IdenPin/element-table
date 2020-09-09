@@ -63,7 +63,7 @@ export default {
           }
           on-click={e => proxy.handleExpandClick(row, e)}
         >
-          <i class='el-icon el-icon-arrow-right' />
+          <i class="el-icon el-icon-arrow-right" />
         </div>
       )
     },
