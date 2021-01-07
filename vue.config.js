@@ -9,16 +9,15 @@ module.exports = {
   },
   // 强制内联CSS
   css: { extract: false },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     if (process.env.NODE_ENV !== 'development') {
       config.module
         .rule('js')
-        .include
-        .add(path.join(__dirname, 'packages'))
+        .include.add(path.join(__dirname, 'packages'))
         .end()
         .use('babel')
         .loader('babel-loader')
-        .tap(options => {
+        .tap((options) => {
           return options
         })
     }

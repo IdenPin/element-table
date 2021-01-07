@@ -1,16 +1,27 @@
 <template>
   <div>
-    <el-table-block :column="column"
+    <el-table-block
+      :column="column"
       :data="rows"
       :rowClassName="rowClassName"
       :pagination="true"
-      :currentPage.sync="currentPage"
-      :pageSize.sync="pageSize"
-      :pageTotal="40"
-      paginationAlign='center'
-      @currentChange="fetchTable"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :total="30"
+      height="300"
+      layout="prev, pager, slot, jumper, next, sizes"
+      prev-text="上页"
+      next-text="下页"
       size="mini"
-      border>
+      background
+      @currentChange="fetchTable"
+    >
+      <template v-slot:append>
+        <h3 style="text-align: right; margin-right: 20px">合计：100</h3>
+      </template>
+      <template v-slot:pagination>
+        <el-button style="padding: 0 8px" class="btn-next">前往最后一页</el-button>
+      </template>
     </el-table-block>
   </div>
 </template>
@@ -19,7 +30,7 @@
 import columnData from '../assets/data'
 export default {
   name: 'Demo',
-  data () {
+  data() {
     return {
       currentPage: 1,
       pageSize: 5,
@@ -35,10 +46,10 @@ export default {
     }
   },
   methods: {
-    fetchTable (v) {
+    fetchTable(v) {
       this.currentPage = v
     },
-    rowClassName ({ row, rowIndex }) {
+    rowClassName({ row, rowIndex }) {
       if (rowIndex === 1) {
         return 'warning-row'
       } else if (rowIndex === 3) {
@@ -51,12 +62,12 @@ export default {
 </script>
 
 <style>
-.___test___style__label{
+.___test___style__label {
   background-color: black;
   margin: 0;
   padding: 0;
 }
-.___test___style{
+.___test___style {
   font-size: 26px;
   padding: 0;
   background-color: yellow;

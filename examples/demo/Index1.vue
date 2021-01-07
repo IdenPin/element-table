@@ -1,29 +1,16 @@
 <template>
-  <el-table-block
-    :column="column"
-    :data="rows"
-  />
+  <el-table-block :column="column" :data="rows" />
 </template>
 
 <script>
 export default {
   name: 'Demo',
-  data () {
+  data() {
     return {
       column: [
         {
           label: '日期',
-          prop: 'date',
-          renderHeader: () => {
-            return (
-              <b style={{ color: '#000' }}>日期格式化</b>
-            )
-          },
-          renderBody: (h, scope) => {
-            return (
-              <b>{scope.row.date}</b>
-            )
-          }
+          prop: 'date'
         },
         {
           label: '名称',
@@ -34,13 +21,8 @@ export default {
           prop: 'address'
         },
         {
-          label: '操作',
-          prop: 'name',
-          renderBody: (h, scope) => {
-            return (
-              <el-link type="success">{scope.row.date}</el-link>
-            )
-          }
+          label: '操作人',
+          prop: 'name'
         }
       ],
       rows: Array.from({ length: 5 }, (_, index) => ({

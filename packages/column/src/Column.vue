@@ -28,30 +28,21 @@
     :filter-placement="column.filterPlacement"
     :filter-multiple="column.filterMultiple"
     :filter-method="column.filterMethod"
-    :filtered-value="column.filteredValue">
-
+    :filtered-value="column.filteredValue"
+  >
     <!-- <template slot="header"
       slot-scope="scope"> -->
     <template v-slot:header="scope">
-      <HRender v-if="column.renderHeader"
-        :scope="scope"
-        :render="column.renderHeader">
-      </HRender>
+      <HRender v-if="column.renderHeader" :scope="scope" :render="column.renderHeader"> </HRender>
       <span v-else>{{ scope.column.label }}</span>
     </template>
 
     <template v-slot="scope">
-      <HRender
-        :scope="scope"
-        :render="column.renderBody">
-      </HRender>
+      <HRender :scope="scope" :render="column.renderBody"> </HRender>
     </template>
 
     <template v-if="column.children">
-      <Column v-for="(col, index) in column.children"
-        :key="index"
-        :column="col">
-      </Column>
+      <Column v-for="(col, index) in column.children" :key="index" :column="col"> </Column>
     </template>
   </el-table-column>
 </template>
@@ -70,26 +61,26 @@ export default {
     HRender
   },
   methods: {
-    setColumn () {
+    setColumn() {
       if (this.column.type) {
         this.column.renderHeader = forced[this.column.type].renderHeader
         this.column.renderBody = this.column.renderBody || forced[this.column.type].renderCell
       }
       if (this.column.formatter) {
         this.column.renderBody = (h, scope) => {
-          return <span>{ scope.column.formatter(scope.row, scope.column, scope.row, scope.$index) }</span>
+          return <span>{scope.column.formatter(scope.row, scope.column, scope.row, scope.$index)}</span>
         }
       }
       if (!this.column.renderBody) {
         this.column.renderBody = (h, scope) => {
-          return <span>{ scope.row[scope.column.property] }</span>
+          return <span>{scope.row[scope.column.property]}</span>
         }
       }
     }
   },
   watch: {
     column: {
-      handler () {
+      handler() {
         this.setColumn()
       },
       immediate: true

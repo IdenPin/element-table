@@ -3,19 +3,37 @@ module.exports = {
   env: {
     node: true
   },
-  extends: [
-    'plugin:vue/essential',
-    '@vue/standard'
-  ],
-  // extends: [
-  //   'plugin:vue/strongly-recommended',
-  //   '@vue/prettier'
-  // ],
+  extends: ['plugin:vue/essential', 'eslint:recommended', '@vue/prettier'],
   parserOptions: {
     parser: 'babel-eslint'
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
-  }
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-unused-vars': 'off',
+    // 'space-before-function-paren': 0,
+    'prettier/prettier': [
+      'error',
+      {
+        semi: false,
+        // spaceBeforeFunctionParen: false,
+        singleQuote: true,
+        printWidth: 120,
+        endOfLine: 'auto',
+        trailingComma: 'none',
+        proseWrap: 'never'
+      }
+    ]
+  },
+  globals: {
+    T: true
+  },
+  overrides: [
+    {
+      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
+      env: {
+        mocha: true
+      }
+    }
+  ]
 }

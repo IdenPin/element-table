@@ -1,75 +1,83 @@
 <template>
   <div>
-    <!-- <el-table-block :column="column"
-      :data="rows"
-      :merge="merge"
-    /> -->
-    <el-table-block :column="column"
-      :data="rows"
-      :span-method="spanMethod"
-      border>
-    </el-table-block>
+    <el-table-block :column="column" :data="rows" :merge="merge" border />
+
+    <!-- <el-table-block :column="column" :data="rows" :span-method="spanMethod" border> </el-table-block> -->
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       searchValue: '',
-      column: [{
-        type: 'index',
-        renderBody: (h, data) => {
-          return (
-            <b>{data.$index + 1}</b>
-          )
-        }
-      }, {
-        prop: 'mpName',
-        label: '工艺流程'
-      }, {
-        prop: 'processTypeName',
-        label: '工艺类型'
-      }, {
-        prop: 'equipTypeName',
-        label: '设备类型'
-      }, {
-        prop: 'equipTypeId',
-        label: '监测设备',
-        formatter (data) {
-          return data.equipTypeId + '件'
-        }
-      }, {
-        prop: 'equipId',
-        label: '判断依据'
-      }, {
-        prop: 'processTypeCode',
-        label: '操作',
-        renderHeader: (h) => {
-          return (
-            <el-input
-              value={this.searchValue}
-              onInput={value => (this.searchValue = value)}
-              size="mini"
-              placeholder="输入关键字搜索"/>
-          )
+      column: [
+        {
+          type: 'index',
+          renderBody: (h, data) => {
+            return <b>{data.$index + 1}</b>
+          }
         },
-        renderBody (h) {
-          return (
-            <el-button type="primary" size="mini" onClick={() => { alert(1) }}>查看</el-button>
-          )
+        {
+          prop: 'mpName',
+          label: '工艺流程'
+        },
+        {
+          prop: 'processTypeName',
+          label: '工艺类型'
+        },
+        {
+          prop: 'equipTypeName',
+          label: '设备类型'
+        },
+        {
+          prop: 'equipTypeId',
+          label: '监测设备',
+          formatter(data) {
+            return data.equipTypeId + '件'
+          }
+        },
+        {
+          prop: 'equipId',
+          label: '判断依据'
+        },
+        {
+          prop: 'processTypeCode',
+          label: '操作',
+          renderHeader: (h) => {
+            return (
+              <el-input
+                value={this.searchValue}
+                onInput={(value) => (this.searchValue = value)}
+                size="mini"
+                placeholder="输入关键字搜索"
+              />
+            )
+          },
+          renderBody(h) {
+            return (
+              <el-button
+                type="primary"
+                size="mini"
+                onClick={() => {
+                  alert(1)
+                }}
+              >
+                查看
+              </el-button>
+            )
+          }
         }
-      }
       ],
       rows: [],
-      merge: ['mpName', 'processTypeName']
+      merge: ['mpName', 'equipTypeId']
     }
   },
-  mounted () {
+  mounted() {
     this.fetchTable()
   },
   methods: {
-    setTable (tableData, merge) {
+    setTable(tableData, merge) {
       this.mergeLine = {}
       this.mergeIndex = {}
       merge.forEach((item, k) => {
@@ -88,14 +96,14 @@ export default {
             } else {
               // 否则不合并
               this.mergeIndex[item].push(1)
-              console.log('i', i)
+              // console.log('i', i)
               this.mergeLine[item] = i
             }
           }
         })
       })
     },
-    spanMethod ({ row, column, rowIndex, columnIndex }) {
+    spanMethod({ row, column, rowIndex, columnIndex }) {
       const index = this.merge.indexOf(column.property)
       if (index > -1) {
         const _row = this.mergeIndex[column.property][rowIndex]
@@ -106,7 +114,7 @@ export default {
         }
       }
     },
-    async fetchTable () {
+    async fetchTable() {
       // const { data } = await fetch('http://rap2.taobao.org:38080/app/mock/data/1679024').then((res) => res.json())
       const data = [
         {
@@ -128,7 +136,7 @@ export default {
               equipTypeName: '回流泵'
             }
           ],
-          equipId: '121212'
+          equipId: '1220218'
         },
         // {
         //   mpId: '89283938293',
@@ -166,7 +174,7 @@ export default {
               equipTypeName: '污泥回流泵'
             }
           ],
-          equipId: '222'
+          equipId: '1000212'
         }
         // {
         // mpId: '434342323',
@@ -191,7 +199,7 @@ export default {
         // }
       ]
       this.rows = data.reduce((acc, v) => {
-        v.equipType.forEach(vv => {
+        v.equipType.forEach((vv) => {
           vv.rows = v.equipType.length
           vv.equipId = v.equipId
           vv.mpName = v.mpName

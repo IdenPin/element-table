@@ -1,29 +1,30 @@
 <template>
   <div class="el-table-block-wrap">
-    <el-table ref="elTableBlock"
+    <el-table
+      ref="elTableBlock"
       v-bind="$attrs"
       v-on="$listeners"
       :data="data"
-      :span-method="this.merge ? this.mergeMethod : this.spanMethod">
-      <Column v-bind="$attrs"
-        v-on="$listeners"
-        v-for="(item, index) in column"
-        :key="index"
-        :column="item">
-      </Column>
+      :span-method="this.merge ? this.mergeMethod : this.spanMethod"
+    >
+      <Column v-bind="$attrs" v-on="$listeners" v-for="(item, index) in column" :key="index" :column="item"> </Column>
+      <template v-slot:append>
+        <!-- 表格后追加 -->
+        <slot name="append"></slot>
+      </template>
     </el-table>
-    <el-pagination class="pagination"
-      v-if="pagination && pageTotal>0"
+    <el-pagination
+      class="pagination"
+      v-if="pagination && $attrs.total > 0"
       v-bind="$attrs"
       v-on="$listeners"
-      :layout="pageLayout"
-      :total="pageTotal"
-      :current-page="currentPage"
-      :page-size="pageSize"
-      :background="pageBackground"
-      :hide-on-single-page="pageHideOnSignlePage"
+      :current-page="$attrs.currentPage"
+      :page-size="$attrs.pageSize"
+      :style="$attrs.pageStyle"
       @current-change="paginationCurrentChange"
-      :style="{ 'margin-top': paginationTop, 'text-align': paginationAlign }">
+    >
+      <!-- 分页-自定义slot -->
+      <slot name="pagination"></slot>
     </el-pagination>
   </div>
 </template>
@@ -36,39 +37,15 @@ export default {
     column: Array,
     data: Array,
     spanMethod: Function,
-    pageHideOnSignlePage: {
-      type: Boolean,
-      defalut: false
-    },
-    currentPage: {
-      type: Number,
-      default: 1
-    },
-    pageLayout: {
-      type: String,
-      default: 'total, prev, pager, next'
-    },
-    pageTotal: {
-      type: [Number, String],
-      default: 0
-    },
-    pageSize: {
-      type: Number,
-      default: 10
-    },
+    // currentPage: {
+    //   type: Number,
+    //   default: 1
+    // },
+    // pageSize: {
+    //   type: Number,
+    //   default: 10
+    // },
     pagination: {
-      type: Boolean,
-      default: false
-    },
-    paginationTop: {
-      type: String,
-      default: '15px'
-    },
-    paginationAlign: {
-      type: String,
-      default: 'right'
-    },
-    pageBackground: {
       type: Boolean,
       default: false
     },
@@ -77,112 +54,112 @@ export default {
   components: {
     Column
   },
-  data () {
+  data() {
     return {
       mergeLine: {},
       mergeIndex: {}
     }
   },
-  created () {
+  created() {
     this.getMergeArr(this.data, this.merge)
   },
   computed: {
-    dataLength () {
+    dataLength() {
       return this.data.length
     }
   },
   methods: {
-    clearSelection () {
+    clearSelection() {
       this.$refs.elTable.clearSelection()
     },
-    toggleRowSelection (row, selected) {
+    toggleRowSelection(row, selected) {
       this.$refs.elTable.toggleRowSelection(row, selected)
     },
-    toggleAllSelection () {
+    toggleAllSelection() {
       this.$refs.elTable.toggleAllSelection()
     },
-    toggleRowExpansion (row, expanded) {
+    toggleRowExpansion(row, expanded) {
       this.$refs.elTable.toggleRowExpansion(row, expanded)
     },
-    setCurrentRow (row) {
+    setCurrentRow(row) {
       this.$refs.elTable.setCurrentRow(row)
     },
-    clearSort () {
+    clearSort() {
       this.$refs.elTable.clearSort()
     },
-    clearFilter (columnKey) {
+    clearFilter(columnKey) {
       this.$refs.elTable.clearFilter(columnKey)
     },
-    doLayout () {
+    doLayout() {
       this.$refs.elTable.doLayout()
     },
-    sort (prop, order) {
+    sort(prop, order) {
       this.$refs.elTable.sort(prop, order)
     },
-    paginationCurrentChange (val) {
+    paginationCurrentChange(val) {
       this.$emit('currentChange', val)
     },
-    getMergeArr (tableData, merge) {
-      // ["mpName", "processTypeName"]
+    getMergeArr(tableData, merge) {
       if (!merge) return
-      this.mergeLine = {}
-      this.mergeIndex = {}
+      let mergeLine = {}
+      let mergeIndex = {}
       merge.forEach((item, k) => {
         tableData.forEach((data, i) => {
           if (i === 0) {
-            this.mergeIndex[item] = this.mergeIndex[item] || []
-            this.mergeIndex[item].push(1) // this.mergeIndex['mpName'] = [1]
-            this.mergeLine[item] = 0 // this.mergeLine['mpName'] = 0
+            mergeIndex[item] = mergeIndex[item] || []
+            mergeIndex[item].push(1) // this.mergeIndex['mpName'] = [1]
+            mergeLine[item] = 0 // this.mergeLine['mpName'] = 0
           } else {
             if (data[item] === tableData[i - 1][item]) {
               // （相同值第一个出现的位置，统计需要合并多少行）
-              this.mergeIndex[item][this.mergeLine[item]] += 1
+              mergeIndex[item][mergeLine[item]] += 1
               // 新增一个被合并行
-              this.mergeIndex[item].push(0)
+              mergeIndex[item].push(0)
             } else {
               // 否则不合并
-              this.mergeIndex[item].push(1)
-              this.mergeLine[item] = i
+              mergeIndex[item].push(1)
+              mergeLine[item] = i
             }
           }
         })
       })
+      // console.log('mergeLine', JSON.stringify(mergeLine, null, 2))
+      // console.log('mergeIndex', JSON.stringify(mergeIndex, null, 2))
+      this.mergeLine = mergeLine
+      this.mergeIndex = mergeIndex
     },
-    mergeMethod ({ row, column, rowIndex, columnIndex }) {
+    mergeMethod({ row, column, rowIndex, columnIndex }) {
+      // console.log(`第${rowIndex}行，第${columnIndex}列`)
+      // console.log('column', JSON.stringify(column, null, 2))
       const index = this.merge.indexOf(column.property)
       if (index > -1) {
+        console.log(`第${rowIndex}行，第${columnIndex}列`)
+        console.log('mergeLine', JSON.stringify(this.mergeIndex, null, 2))
         const _row = this.mergeIndex[column.property][rowIndex]
-        // this.mergeIndex => {
-        //   mpName: [
-        //     3,
-        //     0,
-        //     0,
-        //     2,
-        //     0
-        //   ],
-        //   processTypeName: [
-        //     3,
-        //     0,
-        //     0,
-        //     2,
-        //     0
-        //   ]
-        // }
+
         return {
           rowspan: _row,
-          colspan: _row > 0 ? 1 : 0 // 0 展示 1隐藏
+          colspan: _row > 0 ? 1 : 0 // 1 展示 0隐藏
         }
       }
     }
   },
   watch: {
-    merge () {
+    merge() {
       this.getMergeArr(this.data, this.merge)
     },
-    dataLength () {
+    dataLength() {
       this.getMergeArr(this.data, this.merge)
     }
   }
 }
-
 </script>
+<style scoped>
+.pagination {
+  display: flex;
+  padding: 10px 0;
+  justify-content: center;
+  border: 1px solid #ebeef5;
+  border-top: none;
+}
+</style>

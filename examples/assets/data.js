@@ -1,11 +1,11 @@
-export default function (ctx) {
+export default function (vm) {
   return [
     {
       type: 'index',
       label: '编号',
       width: 100,
-      index: (v) => {
-        return (ctx.currentPage - 1) * ctx.pageSize + v + 1
+      index(v) {
+        return (vm.currentPage - 1) * vm.pageSize + v + 1
       }
     },
     {
@@ -14,7 +14,7 @@ export default function (ctx) {
       labelClassName: '___test___style__label',
       className: '___test___style',
       showOverflowTooltip: true,
-      renderHeader (h, { column }) {
+      renderHeader(h, { column }) {
         return (
           <div>
             <el-link type="success">{column.label}</el-link>
@@ -29,7 +29,7 @@ export default function (ctx) {
         {
           prop: 'name',
           label: '姓名',
-          renderBody (h, { row }) {
+          renderBody(h, { row }) {
             return (
               <div style={{ backgroundColor: 'red' }}>
                 <i style={{ color: '#fff' }}>{row.name}</i>

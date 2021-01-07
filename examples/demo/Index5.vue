@@ -1,35 +1,21 @@
 <template>
   <div>
-    <el-table-block :column="tableData.column"
-      :data="tableData.data">
-    </el-table-block>
+    <el-table-block :column="tableData.column" :data="tableData.data"> </el-table-block>
 
-    <el-dialog :visible.sync="dialogVisible"
-      title="编辑"
-      append-to-body>
+    <el-dialog :visible.sync="dialogVisible" title="编辑" append-to-body>
       <div class="dialog-content">
-        <el-form v-if="currentEdit"
-          label-width="100px">
-
+        <el-form v-if="currentEdit" label-width="100px">
           <el-form-item label="日期">
-            <el-date-picker v-model="currentEdit.date"
-              type="date"
-              value-format="yyyy-MM-dd"
-              placeholder="选择日期">
+            <el-date-picker v-model="currentEdit.date" type="date" value-format="yyyy-MM-dd" placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
 
           <el-form-item label="姓名">
-            <el-input v-model="currentEdit.name"
-              placeholder="请输入姓名">
-            </el-input>
+            <el-input v-model="currentEdit.name" placeholder="请输入姓名"> </el-input>
           </el-form-item>
 
           <el-form-item label="地址">
-            <el-input v-model="currentEdit.address"
-              type="textarea"
-              placeholder="请输入地址">
-            </el-input>
+            <el-input v-model="currentEdit.address" type="textarea" placeholder="请输入地址"> </el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -43,7 +29,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       tableData: {
         column: [
@@ -62,7 +48,16 @@ export default {
           {
             label: '操作',
             renderBody: (h, scope) => {
-              return <el-button type="primary" onClick={ () => { this.openDialog(scope) } }>编辑</el-button>
+              return (
+                <el-button
+                  type="primary"
+                  onClick={() => {
+                    this.openDialog(scope)
+                  }}
+                >
+                  编辑
+                </el-button>
+              )
             }
           }
         ],
@@ -70,17 +65,17 @@ export default {
           {
             date: '2016-05-02',
             name: '韩寒1',
-            address: '上海市普陀区金沙江路 1518 弄'
+            address: '陕西省西安市高新区都市之门'
           },
           {
             date: '2016-05-02',
             name: '韩寒2',
-            address: '上海市普陀区金沙江路 1518 弄'
+            address: '陕西省西安市高新区都市之门'
           },
           {
             date: '2016-05-02',
             name: '韩寒3',
-            address: '上海市普陀区金沙江路 1518 弄'
+            address: '陕西省西安市高新区都市之门'
           }
         ]
       },
@@ -90,12 +85,12 @@ export default {
     }
   },
   methods: {
-    openDialog (scope) {
+    openDialog(scope) {
       this.currentEdit = JSON.parse(JSON.stringify(scope.row))
       this.currentIndex = scope.$index
       this.dialogVisible = true
     },
-    confirm () {
+    confirm() {
       this.dialogVisible = false
       this.$set(this.tableData.data, this.currentIndex, this.currentEdit)
     }

@@ -5,13 +5,13 @@
     :pageTotal="20"
     :pageSize="5"
     :currentPage="1"
-    :data="tableData.data">
-  </el-table-block>
+    :data="tableData.data"
+  />
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       tableData: {
         column: [
@@ -25,18 +25,20 @@ export default {
             renderBody: (h, scope) => {
               return (
                 <div>
-                  {
-                    scope.row._edit
-                      ? <el-date-picker
-                        value={ scope.row[scope.column.property] }
-                        type="date"
-                        value-format="yyyy-MM-dd"
-                        placeholder="选择日期"
-                        style="width: 140px"
-                        onInput={ (val) => { scope.row[scope.column.property] = val } }>
-                      </el-date-picker>
-                      : <span>{ scope.row[scope.column.property] }</span>
-                  }
+                  {scope.row._edit ? (
+                    <el-date-picker
+                      value={scope.row[scope.column.property]}
+                      type="date"
+                      value-format="yyyy-MM-dd"
+                      placeholder="选择日期"
+                      style="width: 140px"
+                      onInput={(val) => {
+                        scope.row[scope.column.property] = val
+                      }}
+                    ></el-date-picker>
+                  ) : (
+                    <span>{scope.row[scope.column.property]}</span>
+                  )}
                 </div>
               )
             }
@@ -47,11 +49,16 @@ export default {
             renderBody: (h, scope) => {
               return (
                 <div>
-                  {
-                    scope.row._edit
-                      ? <el-input value={ scope.row[scope.column.property] } onInput={ (val) => { scope.row[scope.column.property] = val } }></el-input>
-                      : <span>{ scope.row[scope.column.property] }</span>
-                  }
+                  {scope.row._edit ? (
+                    <el-input
+                      value={scope.row[scope.column.property]}
+                      onInput={(val) => {
+                        scope.row[scope.column.property] = val
+                      }}
+                    ></el-input>
+                  ) : (
+                    <span>{scope.row[scope.column.property]}</span>
+                  )}
                 </div>
               )
             }
@@ -62,23 +69,23 @@ export default {
             renderBody: (h, scope) => {
               return (
                 <div>
-                  {
-                    scope.row._edit
-                      ? (
-                        <el-select value={ scope.row[scope.column.property] }
-                          style="width: 80px"
-                          onChange={ (val) => { scope.row[scope.column.property] = val } }>
-                          {
-                            this.tagOptions.map(option => {
-                              return (
-                                <el-option label={ option.label } value={ option.value }></el-option>
-                              )
-                            })
-                          }
-                        </el-select>
-                      )
-                      : <el-tag type={ scope.row.tag === '家' ? 'primary' : 'success'}>{ scope.row[scope.column.property] }</el-tag>
-                  }
+                  {scope.row._edit ? (
+                    <el-select
+                      value={scope.row[scope.column.property]}
+                      style="width: 80px"
+                      onChange={(val) => {
+                        scope.row[scope.column.property] = val
+                      }}
+                    >
+                      {this.tagOptions.map((option) => {
+                        return <el-option label={option.label} value={option.value}></el-option>
+                      })}
+                    </el-select>
+                  ) : (
+                    <el-tag type={scope.row.tag === '家' ? 'primary' : 'success'}>
+                      {scope.row[scope.column.property]}
+                    </el-tag>
+                  )}
                 </div>
               )
             }
@@ -88,15 +95,36 @@ export default {
             renderBody: (h, scope) => {
               return (
                 <div>
-                  {
-                    scope.row._edit
-                      ? <div>
-                        <el-button type="primary" onClick={ () => { this.handleSave(scope) } }>保存</el-button>
-                        <el-button onClick={ () => { this.handleCancle(scope) } }>取消</el-button>
-                      </div>
-                      : <el-button type="primary"
-                        onClick={ () => { this.handleEdit(scope) } }>编辑</el-button>
-                  }
+                  {scope.row._edit ? (
+                    <div>
+                      <el-button-group>
+                        <el-button
+                          type="primary"
+                          onClick={() => {
+                            this.handleSave(scope)
+                          }}
+                        >
+                          保存
+                        </el-button>
+                        <el-button
+                          onClick={() => {
+                            this.handleCancle(scope)
+                          }}
+                        >
+                          取消
+                        </el-button>
+                      </el-button-group>
+                    </div>
+                  ) : (
+                    <el-button
+                      type="primary"
+                      onClick={() => {
+                        this.handleEdit(scope)
+                      }}
+                    >
+                      编辑
+                    </el-button>
+                  )}
                 </div>
               )
             }
@@ -133,18 +161,18 @@ export default {
       ]
     }
   },
-  created () {
+  created() {
     this.tableData.defaultData = JSON.parse(JSON.stringify(this.tableData.data))
   },
   methods: {
-    handleEdit (scope) {
+    handleEdit(scope) {
       this.$set(scope.row, '_edit', true)
     },
-    handleSave (scope) {
+    handleSave(scope) {
       this.$set(scope.row, '_edit', false)
       this.$set(this.tableData.defaultData, scope.$index, JSON.parse(JSON.stringify(scope.row)))
     },
-    handleCancle (scope) {
+    handleCancle(scope) {
       this.$set(this.tableData.data, scope.$index, JSON.parse(JSON.stringify(this.tableData.defaultData[scope.$index])))
     }
   }
