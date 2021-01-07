@@ -4,14 +4,15 @@
       <el-card shadow="hover" :body-style="{ padding: '20px' }">
         <div slot="header">
           <div style="font-size: 30px">
-            CTC ELEMENT TABLE DEMO <el-tag size="mini" type="primary">v{{ pkg.version }}</el-tag>
+            ELEMENT TABLE DEMO
+            <el-tag size="mini" type="primary">v{{ pkg.version }}</el-tag>
           </div>
           <p>{{ pkg.description }}</p>
           <highlightjs
             language="javascript"
             v-if="isShowCode"
-            code="import ElTableBlock from '@pdeng/element-table'
-
+            code="npm i @pdeng/element-table
+import ElTableBlock from '@pdeng/element-table'
 Vue.use(ElTableBlock)"
           />
         </div>
@@ -52,6 +53,7 @@ import pkg from '../package.json'
 import Demo1 from './demo/Index1'
 import Demo2 from './demo/Index2'
 import Demo3 from './demo/Index3'
+
 import Demo4 from './demo/Index4'
 import Demo5 from './demo/Index5'
 
@@ -94,6 +96,7 @@ export default {
             prop: 'address'
           },
           {
+
             label: '操作人',
             prop: 'name'
           }

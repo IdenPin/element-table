@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-table-block :column="column" :data="rows" :merge="merge" border />
-
     <!-- <el-table-block :column="column" :data="rows" :span-method="spanMethod" border> </el-table-block> -->
   </div>
 </template>
@@ -14,7 +13,7 @@ export default {
       column: [
         {
           type: 'index',
-          renderBody: (h, data) => {
+          renderBody(h, data) {
             return <b>{data.$index + 1}</b>
           }
         },
@@ -44,7 +43,7 @@ export default {
         {
           prop: 'processTypeCode',
           label: '操作',
-          renderHeader: (h) => {
+          renderHeader(h) {
             return (
               <el-input
                 value={this.searchValue}

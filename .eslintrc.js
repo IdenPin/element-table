@@ -11,12 +11,10 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-unused-vars': 'off',
-    // 'space-before-function-paren': 0,
     'prettier/prettier': [
       'error',
       {
         semi: false,
-        // spaceBeforeFunctionParen: false,
         singleQuote: true,
         printWidth: 120,
         endOfLine: 'auto',
