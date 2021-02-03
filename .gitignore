@@ -23,9 +23,3 @@ pnpm-debug.log*
 
 
 
-# ##### #
-vue.config.js
-babel.config.js
-/public
-/packages
-

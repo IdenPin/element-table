@@ -1,7 +1,7 @@
 <template>
   <div class="el-table-block-wrap">
     <el-table
-      ref="elTableBlock"
+      ref="elTable"
       v-bind="$attrs"
       v-on="$listeners"
       :data="data"
@@ -133,8 +133,8 @@ export default {
       // console.log('column', JSON.stringify(column, null, 2))
       const index = this.merge.indexOf(column.property)
       if (index > -1) {
-        console.log(`第${rowIndex}行，第${columnIndex}列`)
-        console.log('mergeLine', JSON.stringify(this.mergeIndex, null, 2))
+        // console.log(`第${rowIndex}行，第${columnIndex}列`)
+        // console.log('mergeLine', JSON.stringify(this.mergeIndex, null, 2))
         const _row = this.mergeIndex[column.property][rowIndex]
 
         return {

@@ -1,5 +1,14 @@
 <template>
-  <el-table-block :column="column" :data="rows" />
+  <div>
+    <el-table-block
+      highlight-current-row
+      :column="column"
+      @current-change="handleCurrentChange"
+      :data="rows"
+      ref="test"
+    />
+    <el-button style="margin-top: 20px" @click="setCurrent(rows[1])">选中第二行</el-button>
+  </div>
 </template>
 
 <script>
@@ -7,6 +16,7 @@ export default {
   name: 'Demo',
   data() {
     return {
+      currentRow: null,
       column: [
         {
           label: '日期',
@@ -31,16 +41,14 @@ export default {
         address: '陕西省西安市高新区汇鑫IBC'
       }))
     }
+  },
+  methods: {
+    setCurrent(row) {
+      this.$refs.test.setCurrentRow(row)
+    },
+    handleCurrentChange(val) {
+      this.currentRow = val
+    }
   }
 }
 </script>
-
-<style>
-.el-table .warning-row {
-  background: oldlace;
-}
-
-.el-table .success-row {
-  background: #f0f9eb;
-}
-</style>

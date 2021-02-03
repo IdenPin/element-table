@@ -4,9 +4,7 @@ export default {
       return (
         <el-checkbox
           disabled={store.states.data && store.states.data.length === 0}
-          indeterminate={
-            store.states.selection.length > 0 && !store.states.isAllSelected
-          }
+          indeterminate={store.states.selection.length > 0 && !store.states.isAllSelected}
           nativeOn-click={store.toggleAllSelection}
           value={store.states.isAllSelected}
         />
@@ -15,13 +13,9 @@ export default {
     renderCell: (h, { row, column, store, $index }) => {
       return (
         <el-checkbox
-          nativeOn-click={event => event.stopPropagation()}
+          nativeOn-click={(event) => event.stopPropagation()}
           value={store.isSelected(row)}
-          disabled={
-            column.selectable
-              ? !column.selectable.call(null, row, $index)
-              : false
-          }
+          disabled={column.selectable ? !column.selectable.call(null, row, $index) : false}
           on-input={() => {
             store.commit('rowSelectedChanged', row)
           }}
@@ -57,11 +51,8 @@ export default {
       const expanded = store.states.expandRows.indexOf(row) > -1
       return (
         <div
-          class={
-            'el-table__expand-icon ' +
-            (expanded ? 'el-table__expand-icon--expanded' : '')
-          }
-          on-click={e => proxy.handleExpandClick(row, e)}
+          class={'el-table__expand-icon ' + (expanded ? 'el-table__expand-icon--expanded' : '')}
+          on-click={(e) => proxy.handleExpandClick(row, e)}
         >
           <i class="el-icon el-icon-arrow-right" />
         </div>
