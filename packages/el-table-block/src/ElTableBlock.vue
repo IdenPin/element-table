@@ -18,7 +18,6 @@
       v-if="pagination && $attrs.total > 0"
       v-bind="$attrs"
       v-on="$listeners"
-      layout
       :current-page="$attrs.currentPage"
       :page-size="$attrs.pageSize"
       :style="$attrs.pageStyle"
