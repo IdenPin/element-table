@@ -79,7 +79,8 @@ export default {
     setTable(tableData, merge) {
       this.mergeLine = {}
       this.mergeIndex = {}
-      merge.forEach((item, k) => {
+      // eslint-disable-next-line
+      merge.forEach(item => {
         tableData.forEach((data, i) => {
           if (i === 0) {
             this.mergeIndex[item] = this.mergeIndex[item] || []
@@ -102,7 +103,7 @@ export default {
         })
       })
     },
-    spanMethod({ row, column, rowIndex, columnIndex }) {
+    spanMethod({ column, rowIndex }) {
       const index = this.merge.indexOf(column.property)
       if (index > -1) {
         const _row = this.mergeIndex[column.property][rowIndex]
@@ -198,7 +199,8 @@ export default {
         // }
       ]
       this.rows = data.reduce((acc, v) => {
-        v.equipType.forEach((vv) => {
+        // eslint-disable-next-line
+        v.equipType.forEach(vv => {
           vv.rows = v.equipType.length
           vv.equipId = v.equipId
           vv.mpName = v.mpName

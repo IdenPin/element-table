@@ -12,7 +12,7 @@
     "lib": "vue-cli-service build --target lib --name elTableBlock --dest lib packages/index.js"
   },
   "dependencies": {
-    "@pdeng/element-table": "^0.2.7",
+    "@pdeng/element-table": "^0.2.8",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-loader": "^7.1.5",
     "core-js": "^3.6.5",

@@ -32,6 +32,9 @@ Vue.use(ElTableBlock)"
           <el-tab-pane label="弹层修改表格" name="5">
             <Demo5 />
           </el-tab-pane>
+          <el-tab-pane label="动态表头" name="6">
+            <Demo6 />
+          </el-tab-pane>
         </el-tabs>
       </el-card>
       <el-card shadow="hover" class="show-code">
@@ -56,13 +59,14 @@ import Demo3 from './demo/Index3'
 
 import Demo4 from './demo/Index4'
 import Demo5 from './demo/Index5'
+import Demo6 from './demo/Index6'
 
 export default {
   name: 'App',
   data() {
     return {
       pkg,
-      activeName: '1',
+      activeName: '6',
       isShowCode: true
     }
   },
@@ -71,7 +75,8 @@ export default {
     Demo2,
     Demo3,
     Demo4,
-    Demo5
+    Demo5,
+    Demo6
   },
   computed: {
     code() {

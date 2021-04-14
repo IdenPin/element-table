@@ -35,7 +35,7 @@ export default {
           prop: 'name'
         }
       ],
-      rows: Array.from({ length: 5 }, (_, index) => ({
+      rows: Array.from({ length: 5 }, () => ({
         date: '2020-05-02',
         name: '韩小寒',
         address: '陕西省西安市高新区汇鑫IBC'

@@ -35,7 +35,7 @@ export default {
       currentPage: 1,
       pageSize: 5,
       column: columnData(this),
-      rows: Array.from({ length: 10 }, (_, index) => ({
+      rows: Array.from({ length: 10 }, () => ({
         date: '2016-05-03',
         name: '张二米',
         province: '西安',
@@ -49,7 +49,7 @@ export default {
     fetchTable(v) {
       this.currentPage = v
     },
-    rowClassName({ row, rowIndex }) {
+    rowClassName({ rowIndex }) {
       if (rowIndex === 1) {
         return 'warning-row'
       } else if (rowIndex === 3) {

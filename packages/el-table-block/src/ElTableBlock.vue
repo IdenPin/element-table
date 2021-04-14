@@ -18,6 +18,7 @@
       v-if="pagination && $attrs.total > 0"
       v-bind="$attrs"
       v-on="$listeners"
+      layout
       :current-page="$attrs.currentPage"
       :page-size="$attrs.pageSize"
       :style="$attrs.pageStyle"
@@ -103,7 +104,8 @@ export default {
       if (!merge) return
       let mergeLine = {}
       let mergeIndex = {}
-      merge.forEach((item, k) => {
+      // eslint-disable-next-line
+      merge.forEach(item => {
         tableData.forEach((data, i) => {
           if (i === 0) {
             mergeIndex[item] = mergeIndex[item] || []
@@ -128,7 +130,7 @@ export default {
       this.mergeLine = mergeLine
       this.mergeIndex = mergeIndex
     },
-    mergeMethod({ row, column, rowIndex, columnIndex }) {
+    mergeMethod({ column, rowIndex }) {
       // console.log(`第${rowIndex}行，第${columnIndex}列`)
       // console.log('column', JSON.stringify(column, null, 2))
       const index = this.merge.indexOf(column.property)
@@ -159,7 +161,7 @@ export default {
   display: flex;
   padding: 10px 0;
   justify-content: center;
-  border: 1px solid #ebeef5;
+  /* border: 1px solid #ebeef5; */
   border-top: none;
 }
 </style>
