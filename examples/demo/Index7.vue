@@ -1,15 +1,6 @@
 <template>
   <div>
-    <el-select v-model="type" @change="changeType">
-      <el-option v-for="item in [1, 2]" :key="item" :label="`切换${item}个表头`" :value="item"> </el-option>
-    </el-select>
-    <el-table-block
-      ref="multipleTable"
-      @selection-change="handleSelectionChange"
-      :column="tableData.column"
-      :data="tableData.data"
-    >
-    </el-table-block>
+    <el-table-block ref="multipleTable" :column="tableData.column" :data="tableData.data"> </el-table-block>
   </div>
 </template>
 
@@ -155,47 +146,6 @@ export default {
     this.tableData.data = this.fetchTableData()
   },
   methods: {
-    handleSelectionChange(val) {
-      alert(JSON.stringify(val, null, 4))
-    },
-
-    changeType() {
-      this.fetchHeader().then(([data]) => {
-        this.tableData.column.forEach((v, i) => {
-          if (v.prop === 'data_time') {
-            this.tableData.column[i + 1].children.unshift(data)
-            // this.tableData.column.splice(i, 0, data)
-          }
-        })
-      })
-    },
-
-    fetchHeader() {
-      return new Promise((resolve) => {
-        resolve([
-          {
-            prop: 'i13114',
-            label: '量程校准时间->添加',
-            align: 'center',
-            children: [
-              {
-                prop: 'i13114_value',
-                label: '监测值',
-                align: 'center',
-                width: 180
-              },
-              {
-                prop: 'i13114_range',
-                label: '标准范围',
-                width: 160,
-                align: 'center'
-              }
-            ]
-          }
-        ])
-      })
-    },
-
     fetchTableData() {
       return [
         {

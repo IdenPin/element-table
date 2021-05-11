@@ -35,6 +35,9 @@ Vue.use(ElTableBlock)"
           <el-tab-pane label="动态表头" name="6">
             <Demo6 />
           </el-tab-pane>
+          <el-tab-pane label="复杂表格下载" name="7">
+            <Demo7 />
+          </el-tab-pane>
         </el-tabs>
       </el-card>
       <el-card shadow="hover" class="show-code">
@@ -60,13 +63,14 @@ import Demo3 from './demo/Index3'
 import Demo4 from './demo/Index4'
 import Demo5 from './demo/Index5'
 import Demo6 from './demo/Index6'
+import Demo7 from './demo/Index7'
 
 export default {
   name: 'App',
   data() {
     return {
       pkg,
-      activeName: '6',
+      activeName: '7',
       isShowCode: true
     }
   },
@@ -76,7 +80,8 @@ export default {
     Demo3,
     Demo4,
     Demo5,
-    Demo6
+    Demo6,
+    Demo7
   },
   computed: {
     code() {
@@ -643,13 +648,31 @@ export default {
       }
     }
     `
+      let code6 = `
+    <el-select v-model="type" @change="changeType">
+      <el-option v-for="item in [1, 2]" :key="item" :label="切换item个表头" :value="item"> </el-option>
+    </el-select>
+    <el-table-block
+      ref="multipleTable"
+      @selection-change="handleSelectionChange"
+      :column="tableData.column"
+      :data="tableData.data"
+    >
+    </el-table-block>
+    <div style="margin-top: 20px">
+      <el-button @click="toggleSelection([tableData.data[1], tableData.data[2]])">切换第二、第三行的选中状态</el-button>
+      <el-button @click="toggleSelection()">取消选择</el-button>
+    </div>
+    `
 
       let biz = {
         code1,
         code2,
         code3,
         code4,
-        code5
+        code5,
+        code6,
+        code7: ''
       }
 
       return biz[`code${this.activeName}`]

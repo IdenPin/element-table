@@ -13,7 +13,6 @@
       prev-text="上页"
       next-text="下页"
       size="mini"
-      background
       @currentChange="fetchTable"
     >
       <template v-slot:append>

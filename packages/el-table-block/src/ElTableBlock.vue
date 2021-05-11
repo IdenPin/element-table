@@ -1,5 +1,8 @@
 <template>
   <div class="el-table-block-wrap">
+    <div class="download-table" v-if="!$attrs.export" @click="exportTableFile">
+      <i class="el-icon-download"></i>导出
+    </div>
     <el-table
       ref="elTable"
       v-bind="$attrs"
@@ -31,20 +34,13 @@
 
 <script>
 import Column from '../../column/src/Column'
+import exportToExcel from './download'
 export default {
   name: 'ElTableBlock',
   props: {
     column: Array,
     data: Array,
     spanMethod: Function,
-    // currentPage: {
-    //   type: Number,
-    //   default: 1
-    // },
-    // pageSize: {
-    //   type: Number,
-    //   default: 10
-    // },
     pagination: {
       type: Boolean,
       default: false
@@ -69,6 +65,9 @@ export default {
     }
   },
   methods: {
+    exportTableFile() {
+      exportToExcel(this.data, this.column, this.$attrs.exportConfig)
+    },
     clearSelection() {
       this.$refs.elTable.clearSelection()
     },
@@ -156,11 +155,41 @@ export default {
 }
 </script>
 <style scoped>
+.download-table {
+  font-size: 13px;
+  color: #2c3240;
+  cursor: pointer;
+  width: 50px;
+  float: right;
+  margin-bottom: 10px;
+}
+
 .pagination {
   display: flex;
   padding: 10px 0;
   justify-content: center;
   /* border: 1px solid #ebeef5; */
   border-top: none;
+}
+
+::v-deep .el-table thead th,
+::v-deep .el-table thead tr {
+  background: #f3f5f9;
+  color: #717783;
+}
+
+::v-deep .el-table th,
+::v-deep .el-table tr {
+  color: #2e3544;
+}
+
+::v-deep .el-table td,
+::v-deep .el-table th.is-leaf,
+::v-deep .el-table--border td,
+::v-deep .el-table--border th,
+::v-deep .el-table__fixed-right-patch,
+::v-deep .el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed {
+  /* border-right: 1px solid red; */
+  border-bottom: 1px solid #e2e7ef;
 }
 </style>
