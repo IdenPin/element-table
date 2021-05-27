@@ -177,10 +177,21 @@ export default {
   border-top: none;
 }
 
+::v-deep .el-table--small,
+::v-deep .el-table--mini {
+  font-size: 13px;
+}
+::v-deep .el-table--small th {
+  padding: 3px 0;
+}
+::v-deep .el-table--small td {
+  padding: 6px 0;
+}
+
 ::v-deep .el-table thead th,
 ::v-deep .el-table thead tr {
-  background: #f3f5f9;
-  color: #717783;
+  background: #ebeef5;
+  color: #7b818d;
 }
 
 ::v-deep .el-table th,
@@ -194,7 +205,11 @@ export default {
 ::v-deep .el-table--border th,
 ::v-deep .el-table__fixed-right-patch,
 ::v-deep .el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed {
-  /* border-right: 1px solid red; */
-  border-bottom: 1px solid #e2e7ef;
+  border-bottom: 1px solid #e5e7ee;
+}
+::v-deep .el-table--border td,
+::v-deep .el-table--border th,
+::v-deep .el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed {
+  border-right: 1px solid #e5e7ee;
 }
 </style>

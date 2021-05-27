@@ -70,7 +70,7 @@ export default {
   font-size: 26px;
   padding: 0;
   background-color: yellow;
-  border: none;
+  border: red;
 }
 .el-table .warning-row {
   background: oldlace;
