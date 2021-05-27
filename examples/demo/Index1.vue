@@ -6,7 +6,9 @@
       @current-change="handleCurrentChange"
       :data="rows"
       ref="test"
-    />
+    >
+      <div slot="empty">123</div>
+    </el-table-block>
     <el-button style="margin-top: 20px" @click="setCurrent(rows[1])">选中第二行</el-button>
   </div>
 </template>
@@ -35,11 +37,12 @@ export default {
           prop: 'name'
         }
       ],
-      rows: Array.from({ length: 5 }, () => ({
-        date: '2020-05-02',
-        name: '韩小寒',
-        address: '陕西省西安市高新区汇鑫IBC'
-      }))
+      rows: []
+      // rows: Array.from({ length: 5 }, () => ({
+      //   date: '2020-05-02',
+      //   name: '韩小寒',
+      //   address: '陕西省西安市高新区汇鑫IBC'
+      // }))
     }
   },
   methods: {

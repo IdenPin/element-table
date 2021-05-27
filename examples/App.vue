@@ -70,7 +70,7 @@ export default {
   data() {
     return {
       pkg,
-      activeName: '7',
+      activeName: '1',
       isShowCode: true
     }
   },

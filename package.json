@@ -6,7 +6,7 @@
   "keyword": "element ui table",
   "private": false,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "ctc": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "lib": "vue-cli-service build --target lib --name elTableBlock --dest lib packages/index.js"
@@ -22,7 +22,8 @@
     "highlight.js": "^10.5.0",
     "prettier": "^2.2.1",
     "vue": "^2.6.11",
-    "xlsx": "^0.16.9"
+    "xlsx": "^0.16.9",
+    "xlsx-style": "^0.8.13"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",

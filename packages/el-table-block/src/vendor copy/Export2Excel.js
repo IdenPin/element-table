@@ -1,29 +1,5 @@
 import { saveAs } from 'file-saver'
-// import XLSX from 'XLSX'
-import XLSX from 'xlsx-style'
-// 设置表格中cell默认的字体，居中，颜色等
-var defaultCellStyle = {
-  font: {
-    name: '宋体',
-    sz: 14,
-    color: { auto: 1 }
-  },
-  border: {
-    color: { auto: 1 },
-    top: { style: 'thin' },
-    bottom: { style: 'thin' },
-    left: { style: 'thin' },
-    right: { style: 'thin' }
-  },
-  alignment: {
-    /// 自动换行
-    wrapText: 1,
-    // 居中
-    horizontal: 'center',
-    vertical: 'center',
-    indent: 0
-  }
-}
+import XLSX from 'xlsx'
 
 function generateArray(table) {
   var out = []
@@ -62,7 +38,11 @@ function generateArray(table) {
           }
         })
       }
+
+      //Handle Value
       outRow.push(cellValue !== '' ? cellValue : null)
+
+      //Handle Colspan
       if (colspan) for (var k = 0; k < colspan - 1; ++k) outRow.push(null)
     }
     out.push(outRow)
@@ -94,9 +74,14 @@ function sheet_from_array_of_arrays(data, opts) {
       if (range.s.c > C) range.s.c = C
       if (range.e.r < R) range.e.r = R
       if (range.e.c < C) range.e.c = C
-      const cell = { v: data[R][C], s: defaultCellStyle }
+      var cell = {
+        v: data[R][C]
+      }
       if (cell.v == null) continue
-      const cell_ref = XLSX.utils.encode_cell({ c: C, r: R })
+      var cell_ref = XLSX.utils.encode_cell({
+        c: C,
+        r: R
+      })
 
       if (typeof cell.v === 'number') cell.t = 'n'
       else if (typeof cell.v === 'boolean') cell.t = 'b'
@@ -109,9 +94,7 @@ function sheet_from_array_of_arrays(data, opts) {
       ws[cell_ref] = cell
     }
   }
-  if (range.s.c < 10000000) {
-    ws['!ref'] = XLSX.utils.encode_range(range)
-  }
+  if (range.s.c < 10000000) ws['!ref'] = XLSX.utils.encode_range(range)
   return ws
 }
 
@@ -137,8 +120,8 @@ export function export_table_to_excel(id) {
   var data = oo[0]
   var ws_name = 'SheetJS'
 
-  var wb = new Workbook()
-  var ws = sheet_from_array_of_arrays(data)
+  var wb = new Workbook(),
+    ws = sheet_from_array_of_arrays(data)
 
   /* add ranges to worksheet */
   // ws['!cols'] = ['apple', 'banan'];
@@ -151,11 +134,15 @@ export function export_table_to_excel(id) {
   var wbout = XLSX.write(wb, {
     bookType: 'xlsx',
     bookSST: false,
-    type: 'binary',
-    cellStyles: true
+    type: 'binary'
   })
 
-  saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'test.xlsx')
+  saveAs(
+    new Blob([s2ab(wbout)], {
+      type: 'application/octet-stream'
+    }),
+    'test.xlsx'
+  )
 }
 
 export function export_json_to_excel({
@@ -167,7 +154,7 @@ export function export_json_to_excel({
   autoWidth = true,
   bookType = 'xlsx'
 } = {}) {
-  // debugger
+  /* original data */
   filename = filename || 'excel-list'
   data = [...data]
   data.unshift(header)
@@ -176,13 +163,14 @@ export function export_json_to_excel({
     data.unshift(multiHeader[i])
   }
 
-  const sheetName = 'sheet1'
-  const workbook = new Workbook()
-  const ws = sheet_from_array_of_arrays(data)
+  console.log('data', JSON.stringify(data, null, 4))
+
+  var ws_name = 'sheet 1'
+  var wb = new Workbook(),
+    ws = sheet_from_array_of_arrays(data)
+
   if (merges.length > 0) {
-    if (!ws['!merges']) {
-      ws['!merges'] = []
-    }
+    if (!ws['!merges']) ws['!merges'] = []
     merges.forEach((item) => {
       ws['!merges'].push(XLSX.utils.decode_range(item))
     })
@@ -200,11 +188,11 @@ export function export_json_to_excel({
         } else if (val.toString().charCodeAt(0) > 255) {
           /*再判断是否为中文*/
           return {
-            wch: val.toString().length * 4
+            wch: val.toString().length * 2
           }
         } else {
           return {
-            wch: val.toString().length + 6
+            wch: val.toString().length
           }
         }
       })
@@ -220,15 +208,18 @@ export function export_json_to_excel({
     }
     ws['!cols'] = result
   }
-  workbook.SheetNames.push(sheetName)
-  workbook.Sheets[sheetName] = ws
-  const wopts = {
+
+  console.log('ws', ws)
+
+  /* add worksheet to workbook */
+  wb.SheetNames.push(ws_name)
+  wb.Sheets[ws_name] = ws
+
+  var wbout = XLSX.write(wb, {
     bookType: bookType,
     bookSST: false,
-    type: 'binary',
-    cellStyles: true
-  }
-  const wbout = XLSX.write(workbook, wopts, { defaultCellStyle })
+    type: 'binary'
+  })
   saveAs(
     new Blob([s2ab(wbout)], {
       type: 'application/octet-stream'

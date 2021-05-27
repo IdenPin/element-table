@@ -1,8 +1,8 @@
 <template>
   <div class="el-table-block-wrap">
-    <div class="download-table" v-if="!$attrs.export" @click="exportTableFile">
+    <!-- <div class="download-table" v-if="!$attrs.export" @click="exportTableFile">
       <i class="el-icon-download"></i>导出
-    </div>
+    </div> -->
     <el-table
       ref="elTable"
       v-bind="$attrs"
@@ -14,6 +14,10 @@
       <template v-slot:append>
         <!-- 表格后追加 -->
         <slot name="append"></slot>
+      </template>
+      <!-- 默认空白 -->
+      <template v-slot:empty>
+        <slot name="empty"></slot>
       </template>
     </el-table>
     <el-pagination
@@ -66,6 +70,7 @@ export default {
   },
   methods: {
     exportTableFile() {
+      console.log(this.data, this.column)
       exportToExcel(this.data, this.column, this.$attrs.exportConfig)
     },
     clearSelection() {

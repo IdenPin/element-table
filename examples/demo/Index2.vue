@@ -34,9 +34,9 @@ export default {
       currentPage: 1,
       pageSize: 5,
       column: columnData(this),
-      rows: Array.from({ length: 10 }, () => ({
+      rows: Array.from({ length: 10 }, (_, index) => ({
         date: '2016-05-03',
-        name: '张二米',
+        name: `张二米${index}`,
         province: '西安',
         city: '高新',
         address: '陕西省西安市高新区都市之门',
